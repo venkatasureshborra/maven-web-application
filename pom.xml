@@ -91,19 +91,25 @@
 		</dependency>
 		
 	</dependencies>
-	
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>maven-jenkins-grp-repo</name>
+			<url>http://13.232.184.103:8081/repository/maven-jenkins-group/</url>
+		</repository>
+	</repositories>
 	<distributionManagement>
 	
 	    <repository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://13.233.168.125:9980/mithuntechnologies/repository/facebook-releases/</url>
+	      <url>http://13.232.184.103:8081/repository/maven-jenkins-group/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://13.233.168.125:9980/mithuntechnologies/repository/facebook-snapshot/</url>
+	      <url>http://13.232.184.103:8081/repository/maven-jenkins-group/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
