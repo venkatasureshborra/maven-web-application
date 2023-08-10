@@ -94,8 +94,8 @@
 	<repositories>
 		<repository>
 			<id>nexus</id>
-			<name>maven-jenkins-grp-repo</name>
-			<url>http://13.232.184.103:8081/repository/maven-jenkins-group/</url>
+			<name>maven-jenkins-rmote-repo</name>
+			<url>http://13.232.184.103:8081/repository/maven-remote-repo/</url>
 		</repository>
 	</repositories>
 	<distributionManagement>
