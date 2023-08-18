@@ -38,7 +38,7 @@ sendslacknotification(currentBuild.result)
 
 def sendslacknotification(String buildstatus='STARTED'){
 
-buidstatus = buildstatus ?: 'SUCCESS'
+buildstatus = buildstatus ?: 'SUCCESS'
   // Default values
   def colorName = 'RED'
   def colorCode = '#FF0000'
