@@ -1,0 +1,24 @@
+node {
+    def mavenHome = tool name:'maven-3.9'
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')), [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false], [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([githubPush()])])
+    stage('git-checkout'){
+        git branch: 'testing', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
+        echo "From ${env.BRANCH_NAME} branch this will extract"
+    }
+    stage ('build'){
+        echo "YOUR BUILD NUMBER IS : ${env.BUILD_NUMBER}"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+  /*  stage ('soanrqubereport'){
+        sh "${mavenHome}/bin/mvn clean sonar:sonar"
+    }
+    stage('ArtifactsUploadtoNexus'){
+        sh "${mavenHome}/bin/mvn clean package deploy"
+    }
+    stage('deploytoTomcat'){
+        sshagent(['e5c6157b-14c5-4b19-ac15-fb17d1765c44']) {
+          sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@43.205.232.234:/opt/apache-tomcat-9.0.78/webapps/"
+}
+    }
+    */
+}
