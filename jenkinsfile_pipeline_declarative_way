@@ -1,0 +1,76 @@
+pipeline{
+    agent any
+    options {
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')
+  timestamps()
+}
+triggers {
+  pollSCM '* * * * *'
+}
+    tools{
+        maven 'maven-3.9'
+    }
+    stages{
+        stage ("checkoutcode"){
+            steps{
+                 git branch: 'testing', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
+        echo "From ${env.BRANCH_NAME} branch this will extract"
+            }
+        }
+        stage ("Build"){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        stage ('sonarReport'){
+            steps{
+                sh "mvn clean sonar:sonar"
+            }
+        }
+        stage ("uploadtoNexus"){
+            steps{
+                sh "mvn clean deploy"
+            }
+        }
+        stage("deploytoTomcat"){
+            steps{
+                 sshagent(['e5c6157b-14c5-4b19-ac15-fb17d1765c44']) {
+          sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.190.64:/opt/apache-tomcat-9.0.78/webapps/"
+              }
+            }
+        }
+    }
+    post {
+  success {
+    sendslacknotification(currentBuild.result)
+  }
+  failure {
+    // One or more steps need to be included within each condition's block.
+    sendslacknotification(currentBuild.result)
+  }
+}
+}
+// slack notifications with try and catch blocks
+
+def sendslacknotification(String buildStatus = 'STARTED'){
+
+buildStatus = buildStatus ?: 'SUCCESS'
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+if (buildStatus == 'STARTED'){
+colorName = 'YELLOW'
+colorCode = '#FFFF00'
+} else if (buildStatus == 'SUCCESS'){
+colorName = 'GREEN'
+colorCode = '#00FF00'
+} else {
+colorName = 'RED'
+colorCode = '#FF0000'
+}
+slackSend ( color: colorCode, message: summary, channel: "#general" )
+}
+
