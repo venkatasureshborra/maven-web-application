@@ -36,7 +36,7 @@ sendslacknotification(currentBuild.result)
 
 // slack notifications with try and catch blocks
 
-def sendslacknotification(String buildstatus='STARTED'){
+def sendslacknotification(String buildstatus){
 
 buildstatus = buildstatus ?: 'SUCCESS'
   // Default values
