@@ -7,7 +7,7 @@ node {
     }
     stage ('build'){
         echo "YOUR BUILD NUMBER IS : ${env.BUILD_NUMBER}"
-        sh "${mavenHome}/bin/mvn clean package"
+        sh "${mavenHome}/bin/mvn clean"
     }
   /*  stage ('soanrqubereport'){
         sh "${mavenHome}/bin/mvn clean sonar:sonar"
