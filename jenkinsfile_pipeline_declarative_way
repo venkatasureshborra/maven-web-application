@@ -4,6 +4,13 @@ pipeline{
   buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')
   timestamps()
 }
+parameters {
+  string defaultValue: 'testing', description: '''master
+development
+stage
+uat''', name: 'branch_name'
+}
+
 triggers {
   pollSCM '* * * * *'
 }
@@ -13,13 +20,14 @@ triggers {
     stages{
         stage ("checkoutcode"){
             steps{
-                 git branch: 'testing', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
+                 git branch: '${branch_name}', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
         echo "From ${env.BRANCH_NAME} branch this will extract"
             }
         }
         stage ("Build"){
             steps{
                 sh "mvn clean package"
+		echo "this ${branch_name} is used"
             }
         }
        /* stage ('sonarReport'){
