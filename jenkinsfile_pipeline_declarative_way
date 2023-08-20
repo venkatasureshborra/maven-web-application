@@ -4,6 +4,10 @@ pipeline{
   buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')
   timestamps()
 }
+parameters {
+  string defaultValue: 'testing', description: '''development
+stage''', name: 'branch_name'
+}
 triggers {
   pollSCM '* * * * *'
 }
