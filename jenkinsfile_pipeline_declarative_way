@@ -4,12 +4,12 @@ pipeline{
   buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '4')
   timestamps()
 }
-/* parameters {
+ parameters {
   string defaultValue: 'testing', description: '''master
 development
 stage
 uat''', name: 'branch_name'
-} */
+} 
 
 triggers {
   pollSCM '* * * * *'
@@ -19,17 +19,6 @@ triggers {
     }
     stages{
         stage ("checkoutcode"){
-           input {
-  message 'select which branch will continue with'
-  ok 'proceed'
-  submitter 'venkat, administrator'
-  // submitterParameter 'branch_name'
-  parameters {
-                    string(name: 'branch_name', defaultValue: 'testing', description: 'Which branch')
-	//	     echo "${branch_name} this branch will select"
-
-                }
-}
 	   steps{
                  git branch: '${branch_name}', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
         echo "From ${branch_name} branch this will extract"
