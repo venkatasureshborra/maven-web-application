@@ -19,6 +19,10 @@ triggers {
     }
     stages{
         stage ("checkoutcode"){
+	input {
+  message 'select which branch will continue with'
+            }
+
             steps{
                  git branch: '${branch_name}', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
         echo "From ${env.BRANCH_NAME} branch this will extract"
@@ -57,10 +61,6 @@ triggers {
     sendslacknotification(currentBuild.result)
   }
 }
-input {
-  message 'hello hi '
-}
-
 }
 // slack notifications with try and catch blocks
 
