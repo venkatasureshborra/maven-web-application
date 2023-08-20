@@ -32,7 +32,7 @@ triggers {
 }
 	   steps{
                  git branch: '${branch_name}', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
-        echo "From ${branch_name} branch this will extract"O[O
+        echo "From ${branch_name} branch this will extract"
             }
         }
         stage ("Build"){
