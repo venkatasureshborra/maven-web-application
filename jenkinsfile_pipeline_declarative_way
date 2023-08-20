@@ -26,7 +26,7 @@ triggers {
   // submitterParameter 'branch_name'
   parameters {
                     string(name: 'branch_name', defaultValue: 'testing', description: 'Which branch')
-		     echo "${branch_name} this branch will select"
+	//	     echo "${branch_name} this branch will select"
 
                 }
 }
