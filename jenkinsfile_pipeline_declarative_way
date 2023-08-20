@@ -15,22 +15,31 @@ triggers {
         maven 'maven-3.9'
     }
     stages{
-      stage('Example') {
+      /* stage('Example') {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
                 submitter "administrator, venkat"
                 parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                    string(name: 'PERSON', defaultValue: 'Mr venkatasuresh', description: 'Who should I say hello to?')
                 }
             }
             steps {
                 echo "Hello, ${PERSON}, nice to meet you."
             }
-        }
+        /* }
         stage ("checkoutcode"){
+	input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                submitter "administrator, venkat"
+                parameters {
+                    string(name: 'BRANCH', defaultValue: 'testing', description: 'SELECT THE BRANCH')
+                }
+            }
+
 	   steps{
-                 git branch: '${branch_name}', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
+                 git branch: '${BRANCH}', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
         echo "From ${branch_name} branch this will extract"
             }
         }
