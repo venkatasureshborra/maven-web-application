@@ -1,0 +1,26 @@
+pipeline{
+agent any
+tools{
+maven 'maven-3.9'
+}
+triggers{
+//GitHub WebHook
+//githubPush()
+}
+stages {
+stage('CheckOutCode'){
+steps{
+git branch: 'testing', cedentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
+}
+}
+stage ("build"){
+steps{
+sh "mvn clean package"
+}
+}
+stage ("status")
+steps{
+sh "echo this job is succesfully run"
+}
+}
+}
