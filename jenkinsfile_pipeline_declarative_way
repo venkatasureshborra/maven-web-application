@@ -10,9 +10,9 @@ parameters {
   string defaultValue: 'testing', description: '''development
 stage''', name: 'branch_name'
 }
-triggers {
+/* triggers {
   pollSCM '* * * * *'
-}
+}*/
     tools{
         maven 'maven-3.9'
     }
