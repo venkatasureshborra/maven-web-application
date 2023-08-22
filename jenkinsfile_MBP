@@ -10,7 +10,7 @@ triggers{
 stages {
 stage('CheckOutCode'){
 steps{
-git branch: 'testing', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
+git branch: 'master', credentialsId: 'f2741e0e-e6d7-40ba-a90a-8142b53d67f1', url: 'https://github.com/venkatasureshborra/maven-web-application.git'
 }
 }
 stage ("build"){
